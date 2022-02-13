@@ -33,6 +33,15 @@ namespace SVPlant
                 app.UseDeveloperExceptionPage();
             }
 
+            using (var serviceScope = app.ApplicationServices
+                .GetRequiredService<IServiceScopeFactory>().CreateScope())
+            {
+                var context = serviceScope
+                                .ServiceProvider
+                                .GetRequiredService<SVPlantDbContext>();
+                context.Database.Migrate();
+            }
+
             app.UseHttpsRedirection();
 
             app.UseRouting();
