@@ -9,6 +9,7 @@ namespace SVPlant
 {
     public class Startup
     {
+        private const string _corsAllowAll = "AllowAll";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -23,6 +24,13 @@ namespace SVPlant
 
             services.AddDbContext<SVPlantDbContext>(opt =>
                 opt.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddCors(o =>
+            {
+                o.AddPolicy(name: _corsAllowAll, b => b.AllowAnyOrigin()
+                                                        .AllowAnyHeader()
+                                                        .AllowAnyMethod());
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -41,6 +49,7 @@ namespace SVPlant
                                 .GetRequiredService<SVPlantDbContext>();
                 context.Database.Migrate();
             }
+            app.UseCors(_corsAllowAll);
 
             app.UseHttpsRedirection();
 
