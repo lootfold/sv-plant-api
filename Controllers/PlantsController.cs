@@ -1,10 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using SVPlant.Core.Models;
-using SVPlant.Infrastructure.Data;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
+using SVPlant.Core.Interfaces;
 
 namespace SVPlant.Controllers
 {
@@ -12,84 +7,30 @@ namespace SVPlant.Controllers
     [ApiController]
     public class PlantsController : ControllerBase
     {
-        private readonly SVPlantDbContext _dbContext;
+        private readonly IPlantService _plantService;
 
-        public PlantsController(SVPlantDbContext dbContext)
+        public PlantsController(IPlantService plantService)
         {
-            _dbContext = dbContext;
+            _plantService = plantService;
         }
 
         [HttpGet]
         public IActionResult GetPlants()
         {
-            var plants = _dbContext.Plants.Include(p => p.WateringLogs);
-            return Ok(plants);
+            return Ok(_plantService.GetPlants());
         }
 
         [HttpPost("{id:int}/start")]
-        public async Task<IActionResult> StartWatering(int id)
+        public IActionResult StartWatering(int id)
         {
-            var plantInDb = await _dbContext.Plants
-                .Include(p => p.WateringLogs)
-                .SingleOrDefaultAsync(p => p.Id == id);
-
-            if (plantInDb == null)
-            {
-                return NotFound();
-            }
-
-            if (plantInDb.IsGettingWatered)
-            {
-                return BadRequest(new { Message = $"{plantInDb.Name} is already getting watered." });
-            }
-
-            if (plantInDb.LastWatered != null)
-            {
-                var timeDiff = DateTime.Now - plantInDb.LastWatered;
-                var minutes = timeDiff.Value.TotalSeconds;
-                if (minutes < 30)
-                {
-                    return BadRequest(new { Message = "Please wait 30 seconds before watering the plant again." });
-                }
-            }
-
-            var log = new WateringLog
-            {
-                PlantId = id,
-                StartTime = DateTime.Now,
-            };
-            plantInDb.IsGettingWatered = true;
-
-            await _dbContext.WateringLogs.AddAsync(log);
-            await _dbContext.SaveChangesAsync();
-
+            _plantService.StartWatering(id);
             return Ok();
         }
 
         [HttpPost("{id:int}/stop")]
-        public async Task<IActionResult> StopWatering(int id)
+        public IActionResult StopWatering(int id)
         {
-            var plantInDb = await _dbContext.Plants
-                .Include(p => p.WateringLogs)
-                .SingleOrDefaultAsync(p => p.Id == id);
-
-            if (plantInDb == null)
-            {
-                return NotFound();
-            }
-
-            if (!plantInDb.IsGettingWatered)
-            {
-                return BadRequest(new { Message = $"{plantInDb.Name} is not getting watered." });
-            }
-
-            var lastLog = plantInDb.WateringLogs.LastOrDefault();
-            lastLog.StopTime = DateTime.Now;
-
-            plantInDb.IsGettingWatered = false;
-
-            await _dbContext.SaveChangesAsync();
-
+            _plantService.StopWatering(id);
             return Ok();
         }
     }
