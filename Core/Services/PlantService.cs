@@ -1,4 +1,5 @@
-﻿using SVPlant.Core.Interfaces;
+﻿using SVPlant.Core.Exceptions;
+using SVPlant.Core.Interfaces;
 using SVPlant.Core.Models;
 using System;
 using System.Collections.Generic;
@@ -29,12 +30,12 @@ namespace SVPlant.Core.Services
 
             if (plantInDb == null)
             {
-                throw new Exception("Plant not found in DB.");
+                throw new PlantNotFoundException(id);
             }
 
             if (plantInDb.IsGettingWatered)
             {
-                throw new Exception($"{plantInDb.Name} is already getting watered.");
+                throw new ServiceException($"{plantInDb.Name} is already getting watered.");
             }
 
             if (plantInDb.LastWatered != null)
@@ -43,7 +44,7 @@ namespace SVPlant.Core.Services
                 var minutes = timeDiff.Value.TotalSeconds;
                 if (minutes < 30)
                 {
-                    throw new Exception("Please wait 30 seconds before watering the plant again.");
+                    throw new ServiceException("Please wait 30 seconds before watering the plant again.");
                 }
             }
 
@@ -64,12 +65,12 @@ namespace SVPlant.Core.Services
 
             if (plantInDb == null)
             {
-                throw new Exception("Plant not found in DB.");
+                throw new PlantNotFoundException(id);
             }
 
             if (!plantInDb.IsGettingWatered)
             {
-                throw new Exception($"{plantInDb.Name} is not getting watered.");
+                throw new ServiceException($"{plantInDb.Name} is not getting watered.");
             }
 
             var lastLog = plantInDb.WateringLogs.LastOrDefault();
