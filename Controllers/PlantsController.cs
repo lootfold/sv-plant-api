@@ -48,7 +48,7 @@ namespace SVPlant.Controllers
                 var minutes = timeDiff.Value.TotalSeconds;
                 if (minutes < 30)
                 {
-                    return BadRequest(new { Message = "Please wait 30 minutes before watering the plant again." });
+                    return BadRequest(new { Message = "Please wait 30 seconds before watering the plant again." });
                 }
             }
 

@@ -20,8 +20,10 @@ namespace SVPlant.Models
         {
             get
             {
-                var lastlog = WateringLogs.LastOrDefault();
-                return lastlog != null ? lastlog.StopTime : null;
+                return WateringLogs
+                        .Where(w => w.StopTime != null)
+                        .Select(w => w.StopTime)
+                        .LastOrDefault();
             }
         }
 
