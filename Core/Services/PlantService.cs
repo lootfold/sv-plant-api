@@ -9,14 +9,17 @@ namespace SVPlant.Core.Services
 {
     public class PlantService : IPlantService
     {
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IPlantRepository _plantRepository;
         private readonly IWateringLogRepository _wateringLogRepository;
 
         public PlantService(IPlantRepository plantRepository,
-                            IWateringLogRepository wateringLogRepository)
+                            IWateringLogRepository wateringLogRepository,
+                            IUnitOfWork unitOfWork)
         {
             _plantRepository = plantRepository;
             _wateringLogRepository = wateringLogRepository;
+            _unitOfWork = unitOfWork;
         }
 
         public IEnumerable<Plant> GetPlants()
@@ -57,6 +60,7 @@ namespace SVPlant.Core.Services
 
             _plantRepository.UpdatePlant(plantInDb);
             _wateringLogRepository.Add(log);
+            _unitOfWork.Commit();
         }
 
         public void StopWatering(int id)
@@ -80,6 +84,7 @@ namespace SVPlant.Core.Services
 
             _plantRepository.UpdatePlant(plantInDb);
             _wateringLogRepository.Update(lastLog);
+            _unitOfWork.Commit();
         }
     }
 }

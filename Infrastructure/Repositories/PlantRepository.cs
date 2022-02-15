@@ -31,7 +31,6 @@ namespace SVPlant.Infrastructure.Repositories
         public void UpdatePlant(Plant plant)
         {
             _dbContext.Plants.Update(plant);
-            _dbContext.SaveChanges();
         }
     }
 }

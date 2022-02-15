@@ -41,6 +41,7 @@ namespace SVPlant
             });
 
             services.AddTransient<IPlantService, PlantService>();
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddTransient<IPlantRepository, PlantRepository>();
             services.AddTransient<IWateringLogRepository, WateringLogRepository>();
         }
