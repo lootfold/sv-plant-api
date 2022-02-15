@@ -73,6 +73,9 @@ namespace SVPlant
             {
                 endpoints.MapControllers();
             });
+
+            app.UseStaticFiles();
+            app.UseDefaultFiles();
         }
     }
 }
