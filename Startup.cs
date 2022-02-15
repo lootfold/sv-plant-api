@@ -4,7 +4,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using SVPlant.Core.Interfaces;
+using SVPlant.Core.Services;
 using SVPlant.Infrastructure.Data;
+using SVPlant.Infrastructure.Repositories;
 
 namespace SVPlant
 {
@@ -32,6 +35,10 @@ namespace SVPlant
                                                         .AllowAnyHeader()
                                                         .AllowAnyMethod());
             });
+
+            services.AddTransient<IPlantService, PlantService>();
+            services.AddTransient<IPlantRepository, PlantRepository>();
+            services.AddTransient<IWateringLogRepository, WateringLogRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

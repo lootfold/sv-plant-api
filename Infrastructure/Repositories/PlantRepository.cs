@@ -27,5 +27,11 @@ namespace SVPlant.Infrastructure.Repositories
                     .Include(p => p.WateringLogs)
                     .SingleOrDefault(p => p.Id == id);
         }
+
+        public void UpdatePlant(Plant plant)
+        {
+            _dbContext.Plants.Update(plant);
+            _dbContext.SaveChanges();
+        }
     }
 }

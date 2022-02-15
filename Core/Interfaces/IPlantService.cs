@@ -3,10 +3,10 @@ using System.Collections.Generic;
 
 namespace SVPlant.Core.Interfaces
 {
-    public interface IPlantRepository
+    public interface IPlantService
     {
         IEnumerable<Plant> GetPlants();
-        Plant GetPlantById(int id);
-        void UpdatePlant(Plant plant);
+        void StartWatering(int id);
+        void StopWatering(int id);
     }
 }

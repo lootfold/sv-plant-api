@@ -15,7 +15,13 @@ namespace SVPlant.Infrastructure.Repositories
 
         public void Add(WateringLog wateringLog)
         {
-            _dbContext.Add(wateringLog);
+            _dbContext.WateringLogs.Add(wateringLog);
+            _dbContext.SaveChanges();
+        }
+
+        public void Update(WateringLog lastLog)
+        {
+            _dbContext.WateringLogs.Update(lastLog);
             _dbContext.SaveChanges();
         }
     }
