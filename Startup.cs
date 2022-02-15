@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SVPlant.Core.Interfaces;
 using SVPlant.Core.Services;
+using SVPlant.Filters;
 using SVPlant.Infrastructure.Data;
 using SVPlant.Infrastructure.Repositories;
 
@@ -24,7 +25,10 @@ namespace SVPlant
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers(options =>
+            {
+                options.Filters.Add<ExceptionFilter>();
+            });
 
             services.AddDbContext<SVPlantDbContext>(opt =>
                 opt.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
