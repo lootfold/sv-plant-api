@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using SVPlant.Core.Models;
 using SVPlant.Infrastructure.Data;
-using SVPlant.Models;
 using System;
 using System.Linq;
 using System.Threading.Tasks;

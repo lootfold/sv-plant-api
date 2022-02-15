@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 
-namespace SVPlant.Models
+namespace SVPlant.Core.Models
 {
     public class Plant
     {

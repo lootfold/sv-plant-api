@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SVPlant.Models
+namespace SVPlant.Core.Models
 {
     public class WateringLog
     {

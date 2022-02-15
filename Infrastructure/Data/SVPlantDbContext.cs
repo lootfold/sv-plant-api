@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SVPlant.Models;
+using SVPlant.Core.Models;
 using System.Collections.Generic;
 
 namespace SVPlant.Infrastructure.Data
