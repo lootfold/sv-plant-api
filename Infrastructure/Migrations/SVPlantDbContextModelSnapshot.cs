@@ -3,9 +3,9 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using SVPlant;
+using SVPlant.Infrastructure.Data;
 
-namespace SVPlant.Migrations
+namespace SVPlant.Infrastructure.Migrations
 {
     [DbContext(typeof(SVPlantDbContext))]
     partial class SVPlantDbContextModelSnapshot : ModelSnapshot

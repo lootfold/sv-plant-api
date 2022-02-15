@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace SVPlant.Migrations
+namespace SVPlant.Infrastructure.Migrations
 {
-    public partial class AddModelForPlantAndWateringLog : Migration
+    public partial class AddModels : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

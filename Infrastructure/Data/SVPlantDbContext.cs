@@ -2,7 +2,7 @@
 using SVPlant.Models;
 using System.Collections.Generic;
 
-namespace SVPlant
+namespace SVPlant.Infrastructure.Data
 {
     public class SVPlantDbContext : DbContext
     {

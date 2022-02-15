@@ -4,13 +4,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using SVPlant;
+using SVPlant.Infrastructure.Data;
 
-namespace SVPlant.Migrations
+namespace SVPlant.Infrastructure.Migrations
 {
     [DbContext(typeof(SVPlantDbContext))]
-    [Migration("20220213044713_AddModelForPlantAndWateringLog")]
-    partial class AddModelForPlantAndWateringLog
+    [Migration("20220215010446_AddModels")]
+    partial class AddModels
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
